@@ -10,3 +10,6 @@ curl --request POST \
   --data 'client_secret=YOUR_CLIENT_SECRET' \
   --data 'redirect_uri=YOUR_REDIRECT_URI' \
   --data 'code=AUTHORIZATION_CODE'
+
+  https://accounts.zoho.in/oauth/v2/auth?scope=ZohoCRM.users.ALL,ZohoCRM.modules.leads.READ&client_id=1000.T844W91UUD1Q1JE6XNEDRC7ILPBHWU&response_type=code&access_type=online&redirect_uri=https%3A%2F%2Fwww.google.com%2F
+  

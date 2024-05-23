@@ -17,6 +17,26 @@ const { default: axios } = require('axios');
 
 const app = express();
 
+const leadData = {
+    data: [
+        {
+            "Company": "Zylker",
+            "Last_Name": "Davis",
+            "First_Name": "John",
+            "Email": "john.davis@zylker.com",
+            "Phone": "1234567890",
+            "Mobile": "0987654321",
+            "Lead_Source": "Website",
+            // Add other fields as required by your CRM configuration
+        }
+    ],
+    trigger: [
+        "approval",
+        "workflow",
+        "blueprint"
+    ]
+};
+
 // Route to handle the redirect URL
 app.get('/callback', async (req, res) => {
     const authorizationCode = req.query.code; // Assuming the authorization code is passed as a query parameter
@@ -24,13 +44,21 @@ app.get('/callback', async (req, res) => {
     try {
         const accessToken = await exchangeCodeForToken(authorizationCode);
         // Now you have the access token, you can use it for further API requests
-        // res.send('Access Token Received: ' + accessToken);
+        console.log('Access Token Received: ' + accessToken);
         const leadsResponse = await axios.get('https://www.zohoapis.in/crm/v2/Leads', {
             headers: {
-                'Authorization': `Zoho-oauthtoken ${accessToken}`
+                'Authorization': `Zoho-oauthtoken ${accessToken}`,
+                'Accept': 'application/json'
             }
         });
 
+        // const leadsResponse = await axios.get('https://www.zohoapis.in', {
+        //     headers: {
+        //         'Authorization': `Zoho-oauthtoken ${accessToken}`
+        //     }
+        // });
+
+        console.log('leadsResponse', leadsResponse);
         // Process the leads data as needed
         const leads = leadsResponse.data.data;
         console.log('Leads:', leads);
