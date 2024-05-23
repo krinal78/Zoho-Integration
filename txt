@@ -1,0 +1,12 @@
+https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.users.ALL&client_id=1000.QK3U3EY8FF73TGOGI8OAYV6PU4OTMF&response_type=code&access_type="online"&redirect_uri=https://www.google.com/
+
+1000.ff1ac6f47ab2e9b1789d20b698322fea.203f72cea9efcddf05fe0c8b75c03ea
+
+curl --request POST \
+  --url https://accounts.zoho.com/oauth/v2/token \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data 'grant_type=authorization_code' \
+  --data 'client_id=YOUR_CLIENT_ID' \
+  --data 'client_secret=YOUR_CLIENT_SECRET' \
+  --data 'redirect_uri=YOUR_REDIRECT_URI' \
+  --data 'code=AUTHORIZATION_CODE'
