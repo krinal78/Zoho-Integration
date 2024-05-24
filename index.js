@@ -13,9 +13,12 @@
 
 const express = require('express');
 const exchangeCodeForToken = require('./exchangeCodeForToken');
-const { default: axios } = require('axios');
-
+const axios = require('axios');
 const app = express();
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
 
 const leadData = {
     data: [
@@ -37,15 +40,14 @@ const leadData = {
     ]
 };
 
-// Route to handle the redirect URL
-app.get('/callback', async (req, res) => {
+app.get('/zoho', async (req, res) => {
     const authorizationCode = req.query.code; // Assuming the authorization code is passed as a query parameter
-    console.log('authorizationCode', authorizationCode);
+    // console.log('authorizationCode', authorizationCode);
     try {
         const accessToken = await exchangeCodeForToken(authorizationCode);
         // Now you have the access token, you can use it for further API requests
-        console.log('Access Token Received: ' + accessToken);
-        const leadsResponse = await axios.get('https://www.zohoapis.in/crm/v2/Leads', {
+        // console.log('Access Token Received: ' + accessToken);
+        const leadsResponse = await axios.get('https://developer.zohoapis.in/crm/v2/Leads', {
             headers: {
                 'Authorization': `Zoho-oauthtoken ${accessToken}`,
                 'Accept': 'application/json'
@@ -58,7 +60,39 @@ app.get('/callback', async (req, res) => {
         //     }
         // });
 
-        console.log('leadsResponse', leadsResponse);
+        // console.log('leadsResponse', leadsResponse);
+        // Process the leads data as needed
+        const leads = leadsResponse.data.data;
+        // console.log('Leads:', leads);
+
+        res.send(leads);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Error exchanging authorization code for access token');
+    }
+});
+
+// Route to handle the redirect URL
+app.post('/zoho', async (req, res) => {
+    const data = req.body;
+    try {
+        const accessToken = await exchangeCodeForToken();
+        // Now you have the access token, you can use it for further API requests
+        // console.log('Access Token Received: ' + accessToken);
+        const leadsResponse = await axios.post('https://developer.zohoapis.in/crm/v2/Leads', data, {
+            headers: {
+                'Authorization': `Zoho-oauthtoken ${accessToken}`,
+                'Accept': 'application/json'
+            }
+        });
+
+        // const leadsResponse = await axios.get('https://www.zohoapis.in', {
+        //     headers: {
+        //         'Authorization': `Zoho-oauthtoken ${accessToken}`
+        //     }
+        // });
+
+        // console.log('leadsResponse', leadsResponse);
         // Process the leads data as needed
         const leads = leadsResponse.data.data;
         console.log('Leads:', leads);
@@ -87,7 +121,7 @@ app.get('/authorize', (req, res) => {
 
 
 // Start the server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

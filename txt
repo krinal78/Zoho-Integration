@@ -1,7 +1,5 @@
 https://accounts.zoho.com/oauth/v2/auth?scope=ZohoCRM.users.ALL&client_id=1000.QK3U3EY8FF73TGOGI8OAYV6PU4OTMF&response_type=code&access_type="online"&redirect_uri=https://www.google.com/
 
-1000.ff1ac6f47ab2e9b1789d20b698322fea.203f72cea9efcddf05fe0c8b75c03ea
-
 curl --request POST \
   --url https://accounts.zoho.com/oauth/v2/token \
   --header 'Content-Type: application/x-www-form-urlencoded' \
@@ -11,5 +9,13 @@ curl --request POST \
   --data 'redirect_uri=YOUR_REDIRECT_URI' \
   --data 'code=AUTHORIZATION_CODE'
 
-  https://accounts.zoho.in/oauth/v2/auth?scope=ZohoCRM.users.ALL,ZohoCRM.modules.leads.READ&client_id=1000.T844W91UUD1Q1JE6XNEDRC7ILPBHWU&response_type=code&access_type=online&redirect_uri=https%3A%2F%2Fwww.google.com%2F
+
+//link for code generation
+https://accounts.zoho.in/oauth/v2/auth?scope=ZohoCRM.modules.all&client_id=1000.T844W91UUD1Q1JE6XNEDRC7ILPBHWU&response_type=code&access_type=online&redirect_uri=https%3A%2F%2Fwww.google.com%2F
   
+
+Note: authorized code will expire in 1 min, it will provide you access_token and refresh token(take refresh token from it and give it too env).
+
+Possible errors:
+
+- if you stuck in oauthfail then change the scope the appropriate scope and provide it too code generation link

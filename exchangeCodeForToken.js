@@ -7,8 +7,8 @@ const exchangeCodeForToken = async (authorizationCode) => {
             params: {
                 client_id: process.env.ZOHO_CLIENT_ID,
                 client_secret: process.env.ZOHO_CLIENT_SECRET,
-                redirect_uri: process.env.ZOHO_REDIRECT_URI,
-                code: authorizationCode,
+                // redirect_uri: process.env.ZOHO_REDIRECT_URI,
+                // code: authorizationCode,
                 // grant_type: 'authorization_code'
                 grant_type: 'refresh_token',
                 // client_id: client_id,
