@@ -11,7 +11,7 @@ curl --request POST \
 
 
 //link for code generation
-https://accounts.zoho.in/oauth/v2/auth?scope=ZohoCRM.modules.all&client_id=1000.T844W91UUD1Q1JE6XNEDRC7ILPBHWU&response_type=code&access_type=online&redirect_uri=https%3A%2F%2Fwww.google.com%2F
+https://accounts.zoho.in/oauth/v2/auth?scope=ZohoCRM.modules.all&client_id=1000.LTN8HIJKVUMWXRZ8U2KE6EKUESCTQV&response_type=code&access_type=offline&redirect_uri=https%3A%2F%2Fwww.google.com%2F
   
 
 Note: authorized code will expire in 1 min, it will provide you access_token and refresh token(take refresh token from it and give it too env).
@@ -19,3 +19,6 @@ Note: authorized code will expire in 1 min, it will provide you access_token and
 Possible errors:
 
 - if you stuck in oauthfail then change the scope the appropriate scope and provide it too code generation link
+
+//link for zoho book code generation
+https://accounts.zoho.in/oauth/v2/auth?scope=ZohoBooks.invoices.CREATE,ZohoBooks.invoices.READ,ZohoBooks.invoices.UPDATE,ZohoBooks.invoices.DELETE&client_id=1000.LTN8HIJKVUMWXRZ8U2KE6EKUESCTQV&state=testing&response_type=code&redirect_uri=https%3A%2F%2Fwww.google.com%2F&access_type=offline

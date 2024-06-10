@@ -13,6 +13,7 @@
 
 const express = require('express');
 const exchangeCodeForToken = require('./exchangeCodeForToken');
+const zohoApi = require('./zohoApi');
 const axios = require('axios');
 const app = express();
 
@@ -117,6 +118,27 @@ app.get('/authorize', (req, res) => {
     console.log('Request Headers:', req.headers);
 
     res.redirect(url);
+});
+
+
+// New route to export invoices
+app.get('/export-invoices', async (req, res) => {
+    try {
+        const accessToken = await exchangeCodeForToken();
+        const organizationId = await zohoApi.getOrganizationId(accessToken);
+        console.log('Organization ID:', organizationId);
+        // const response = await axios.get('https://books.zoho.in/api/v3/invoices', {
+        //     headers: {
+        //         'Authorization': `Zoho-oauthtoken ${accessToken}`,
+        //         // 'X-com-zoho-books-organizationid': ZOHO_ORGANIZATION_ID
+        //     }
+        // });
+        // const data = response.data.invoices;
+        res.send(organizationId);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Error fetching invoices');
+    }
 });
 
 
